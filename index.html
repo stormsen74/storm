@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title><°)))><</title>
+
+    <!--<script src="lib/pixi/pixi.dev.js"></script>-->
+    <script src="lib/pixi/pixi.js"></script>
+
+    <script src="lib/color/color.js"></script>
+    <script src="lib/toxi/toxiclibs.js"></script>
+    <!--<script src="lib/pixi/NoiseFilter.js"></script>-->
+    <script src="lib/gsap/TweenMax.min.js"></script>
+    <script src="lib/gsap/utils/Draggable.min.js"></script>
+
+
+    <script src="lib/stats/stats.min.js"></script>
+
+    <script src="scripts/DOF_Dudes.js"></script>
+    <script src="scripts/SpriteSheetTest.js"></script>
+    <script src="scripts/RopeSetup.js"></script>
+
+    <script src="scripts/Vec2.js"></script>
+    <script src="scripts/Charge.js"></script>
+    <script src="scripts/Bounds.js"></script>
+    <script src="scripts/utils/mathUtils.js"></script>
+    <script src="scripts/utils/colorUtils.js"></script>
+    <script src="scripts/utils/drawUtils.js"></script>
+    <script src="lib/perlin/perlin.js"></script>
+
+    <script src="scripts/Vectors.js"></script>
+    <script src="scripts/Particle.js"></script>
+    <script src="scripts/FlowField.js"></script>
+    <script src="scripts/ElectricField.js"></script>
+    <script src="scripts/Path.js"></script>
+
+    <script src="scripts/Frac.js"></script>
+
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #333333;
+        }
+
+        .knob_p {
+            background: url(assets/knob_50p.png);
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            text-align: center;
+        }
+
+        .knob_n {
+            background: url(assets/knob_50n.png);
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+<script>
+
+    //    new DOF_Dudes();
+    //    new SpriteSheet_Test();
+    //    new RopeSetup();
+    new Vectors();
+    //    new Frac();
+
+    var r90 = mathUtils.degToRad(90);
+    console.log(mathUtils.radToDeg(r90))
+
+</script>
+</body>
+</html>
