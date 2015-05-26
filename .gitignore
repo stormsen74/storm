@@ -53,3 +53,5 @@ Temporary Items
 /.idea/vcs.xml
 /.idea/workspace.xml
 >>>>>>> d0d7ae42f266e4b09fd2d478ed824c6403e2e291
+/scripts/*.js
+/scripts/*.map
