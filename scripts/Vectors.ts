@@ -9,8 +9,8 @@
 ///<reference path="../lib/stats/stats.d.ts"/>
 
 ///<reference path="../scripts/Particle.ts"/>
-///<reference path="../scripts/FlowField.ts"/>
-///<reference path="../scripts/ElectricField.ts"/>
+///<reference path="fields/FlowField.ts"/>
+///<reference path="fields/ElectricField.ts"/>
 ///<reference path="../scripts/Vec2.ts"/>
 ///<reference path="../scripts/utils/mathUtils.ts"/>
 

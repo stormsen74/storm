@@ -6,7 +6,7 @@
 ///<reference path="../lib/color/color.d.ts"/>
 ///<reference path="../scripts/Vec2.ts"/>
 ///<reference path="../scripts/Bounds.ts"/>
-///<reference path="../scripts/FlowField.ts"/>
+///<reference path="fields/FlowField.ts"/>
 ///<reference path="../scripts/Path.ts"/>
 
 var Color = net.brehaut.Color;
