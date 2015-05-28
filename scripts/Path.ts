@@ -8,7 +8,7 @@
 
 
 class Path {
-    public radius:number = 15;
+    public radius:number = 20;
     public points:Array<Vec2> = [];
 
     private canvas:PIXI.DisplayObjectContainer;
