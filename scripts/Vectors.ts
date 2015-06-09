@@ -21,14 +21,13 @@ class Vectors {
     private stats:Stats;
 
     private pRenderer;
-    private pStage:PIXI.Stage;
-    private pManager:PIXI.InteractionManager;
+    private pStage:PIXI.Container;
+    private pManager:PIXI.interaction.InteractionManager;
     private particles:Array<Particle> = [];
     private mousePosition:Vec2 = new Vec2();
     private particle:Particle;
-    private particleContainer:PIXI.DisplayObjectContainer;
-    private drawContainer:PIXI.DisplayObjectContainer;
-    //private particleContainer:PIXI.SpriteBatch;
+    private particleContainer:PIXI.ParticleContainer;
+    private drawContainer:PIXI.Container;
 
     private renderTexture:PIXI.RenderTexture;
     private renderSprite:PIXI.Sprite;
@@ -39,7 +38,7 @@ class Vectors {
 
     private blurFilter;
 
-    private MAX_PARTICLES:number = 1000;
+    private MAX_PARTICLES:number = 6000; //50fps
 
     private flowField:FlowField;
     private electricField:ElectricField;
@@ -50,18 +49,26 @@ class Vectors {
 
         this.pRenderer = PIXI.autoDetectRenderer(this.SIZE.x, this.SIZE.y);
         //this.pStage = new PIXI.Stage(0x232323);
-        this.pStage = new PIXI.Stage(0xC6B1A0);
+        this.pStage = new PIXI.Container();
+
         this.pStage.interactive = true;
 
-        this.particleContainer = new PIXI.DisplayObjectContainer();
-        //this.particleContainer = new PIXI.SpriteBatch();
+        //this.particleContainer = new PIXI.Container();
+        this.particleContainer = new PIXI.ParticleContainer(this.MAX_PARTICLES, {
+            scale: true,
+            position: true,
+            rotation: true,
+            uvs: true,
+            alpha: true
+        });
 
-        this.drawContainer = new PIXI.DisplayObjectContainer();
+        this.drawContainer = new PIXI.Container();
 
         this.pStage.addChild(this.drawContainer);
         this.pStage.addChild(this.particleContainer);
 
-        this.pManager = new PIXI.InteractionManager(this.pStage);
+        this.pManager = new PIXI.interaction.InteractionManager(this.pRenderer);
+
 
         //this.pRenderer.view.style.width = window.innerWidth + "px";
         //this.pRenderer.view.style.height = window.innerHeight + "px";
@@ -79,10 +86,10 @@ class Vectors {
         this.initStats();
         //this.initRenderTexture();
         this.initParticles();
-        this.initFlowField();
-        this.initElectricField();
+        //this.initFlowField();
+        //this.initElectricField();
         //this.initPath();
-        //this.initListener();
+        this.initListener();
         this.animate();
 
     }
@@ -143,29 +150,29 @@ class Vectors {
     }
 
     private initListener() {
-        this.pManager.stage.mousemove = function (mouseData) {
-            that.mousePosition.set(mouseData.global.x, mouseData.global.y);
+        onmousemove = function (mouseData) {
+            that.mousePosition.set(mouseData.pageX - that.pRenderer.view.offsetLeft, mouseData.pageY - 30);
         }
     }
 
 
     private animate() {
 
-        requestAnimationFrame(() => this.animate());
-
         for (var i = 0, len = this.particles.length; i < len; i++) {
-            //this.particles[i].seek(this.mousePosition);
-            this.particles[i].field(this.electricField);
-            this.particles[i].respawn(this.electricField.getQPos());
-            this.particles[i].field(this.flowField);
+            this.particles[i].seek(this.mousePosition);
+
+            //this.particles[i].field(this.electricField);
+            //this.particles[i].respawn(this.electricField.getQPos());
+            //this.particles[i].field(this.flowField);
+
             //this.particles[i].followPath(this.path);
             this.particles[i].update();
         }
 
-        this.flowField.perlinField();
-        this.flowField.draw();
+        //this.flowField.perlinField();
+        //this.flowField.draw();
 
-        this.electricField.update();
+        //this.electricField.update();
         //this.electricField.draw();
 
         //this.path.draw();
@@ -175,6 +182,9 @@ class Vectors {
         this.pRenderer.render(this.pStage);
 
         this.stats.update();
+
+
+        requestAnimationFrame(() => this.animate());
 
     }
 }

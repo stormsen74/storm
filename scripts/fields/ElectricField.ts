@@ -26,14 +26,14 @@ class ElectricField {
     private cellWidth:number;
     private cellHeight:number;
     private vArray:Array<any>;
-    private canvas:PIXI.DisplayObjectContainer;
+    private canvas:PIXI.Container;
     private graphics:PIXI.Graphics;
     private color:toxi.color.TColor;
 
     private Q1:Charge;
     private Q2:Charge;
 
-    constructor(width:number, height:number, canvas:PIXI.DisplayObjectContainer = null) {
+    constructor(width:number, height:number, canvas:PIXI.Container = null) {
 
         eF = this;
 

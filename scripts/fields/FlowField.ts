@@ -21,7 +21,7 @@ class FlowField {
     private mappedX:number;
     private mappedY:number;
     private vArray:Array<any>;
-    private canvas:PIXI.DisplayObjectContainer;
+    private canvas:PIXI.Container;
     private graphics:PIXI.Graphics;
 
     //private color:net.brehaut.Color;
@@ -39,7 +39,7 @@ class FlowField {
     private PERLIN_THETA:number = 0;
 
 
-    constructor(width:number, height:number, canvas:PIXI.DisplayObjectContainer = null) {
+    constructor(width:number, height:number, canvas:PIXI.Container = null) {
 
         if (canvas != null) {
             this.canvas = canvas;

@@ -11,7 +11,10 @@
 
 var Color = net.brehaut.Color;
 
-class Particle extends PIXI.DisplayObjectContainer {
+// doesn*t work with particleContainer+
+//class Particle extends PIXI.Container {
+
+class Particle extends PIXI.Sprite {
 
     private SEEK_MAX_SPEED:number = 10.0;
     private SEEK_MAX_FORCE = .15;
@@ -52,35 +55,24 @@ class Particle extends PIXI.DisplayObjectContainer {
         //console.log(parseInt(this.color.toString().substring(1), 16));
 
 
-        //var graphics = new PIXI.Graphics();
+        this.texture = PIXI.Texture.fromImage('assets/arrow20p_o.png');
+        this.scale = new PIXI.Point(.4, .4);
 
-        // set a fill and line style
-        //graphics.beginFill(0xFF3300);
-        //graphics.lineStyle(.5, 0xffd900, 1);
+        // ONLY WITH extend CONTAINER!!!
 
-        // draw a shape
-        //graphics.moveTo(0, 0);
-        //graphics.lineTo(20, 0);
-        //this.pivot = new PIXI.Point(10, 0);
-
-        this.sprite = PIXI.Sprite.fromImage('assets/arrow20p_c.png');
-        this.sprite.anchor = new PIXI.Point(this.sprite.width * .5, this.sprite.height * .5)
-        this.sprite.scale = new PIXI.Point(.74, .74);
-        //s.position.x = 10;
-        //s.position.y = 0;
-        this.sprite.blendMode = PIXI.blendModes.COLOR_DODGE;
-
+        //this.sprite = PIXI.Sprite.fromImage('assets/arrow20p_c.png');
+        //this.sprite.anchor = new PIXI.Point(this.sprite.width * .5, this.sprite.height * .5)
+        //this.sprite.scale = new PIXI.Point(.74, .74);
+        //this.sprite.blendMode = PIXI.BLEND_MODES.COLOR_DODGE;
 
         //this.sprite.tint = parseInt(this.color.toString().substring(1), 16);
         //this.sprite.tint = 0xff0000;
 
-        //graphics.cacheAsBitmap = true;
+        //this.addChild(this.sprite);
 
-        this.addChild(this.sprite);
 
     }
 
-    //
 
     public setLocation(_x:number, _y:number) {
         this.location.set(_x, _y);
@@ -336,9 +328,11 @@ class Particle extends PIXI.DisplayObjectContainer {
 
         // colorize
         var value:number = Math.abs(this.velocity.clone().length() / 10);
-        this.color = this.color.setSaturation(value).setLightness(.1 + value);
+        this.alpha = value < .8 ? value : .8;
+
+        //this.color = this.color.setSaturation(value).setLightness(.1 + value);
         //this.color = this.color.setLightness(.1 + value);
-        this.sprite.tint = parseInt(this.color.toString().substring(1), 16);
+        //this.sprite.tint = parseInt(this.color.toString().substring(1), 16);
 
         // set acceleration to zero!
         this.acceleration.multiply(0);

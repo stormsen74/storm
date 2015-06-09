@@ -13,10 +13,9 @@ declare var frac:Frac;
 class Frac {
 
     private pRenderer;
-    private pStage:PIXI.Stage;
-    private pManager:PIXI.InteractionManager;
+    private pContainer:PIXI.Container;
     private mousePosition:Vec2 = new Vec2();
-    private gSprite:PIXI.DisplayObjectContainer;
+    private gSprite:PIXI.Container;
     private graphics:PIXI.Graphics;
     private color:toxi.color.TColor;
 
@@ -38,8 +37,8 @@ class Frac {
 
         this.pRenderer = PIXI.autoDetectRenderer(this.SIZE.x, this.SIZE.y, rendererOptions);
 
-        this.pStage = new PIXI.Stage(0x232323);
-        this.pStage.interactive = true;
+        this.pContainer = new PIXI.Container();
+        this.pContainer.interactive = true;
 
         this.graphics = new PIXI.Graphics();
         this.graphics.pivot = new PIXI.Point(this.SIZE.x * .5, this.SIZE.y * .5);
@@ -47,13 +46,12 @@ class Frac {
         this.graphics.y = this.SIZE.y * .5;
         //this.graphics.scale = new PIXI.Point(.5, .5);
 
-        this.gSprite = new PIXI.DisplayObjectContainer();
+        this.gSprite = new PIXI.Container();
         this.gSprite.addChild(this.graphics);
         //this.gSprite.scale = new PIXI.Point(.5, .5);
 
-        this.pStage.addChild(this.gSprite);
+        this.pContainer.addChild(this.gSprite);
 
-        this.pManager = new PIXI.InteractionManager(this.pStage);
 
         this.pRenderer.view.style.margin = "0 auto";
         this.pRenderer.view.style.paddingTop = "30px"
@@ -104,7 +102,7 @@ class Frac {
             this.tri(p1.x - sideLength * .25, p1.y + h * .5, sideLength * .5);
             this.tri(p1.x + sideLength * .25, p1.y + h * .5, sideLength * .5);
         } else {
-            this.pRenderer.render(this.pStage);
+            this.pRenderer.render(this.pContainer);
         }
 
 
@@ -123,7 +121,7 @@ class Frac {
             this.cantor(x, y, len / 3);
             this.cantor(x + len * 2 / 3, y, len / 3);
         } else {
-            this.pRenderer.render(this.pStage);
+            this.pRenderer.render(this.pContainer);
         }
     }
 
@@ -147,7 +145,7 @@ class Frac {
             this.drawCircle(x, y + radius * offsetY, radius * offsetRadius);
             this.drawCircle(x, y - radius * offsetY, radius * offsetRadius);
         } else {
-            this.pRenderer.render(this.pStage);
+            this.pRenderer.render(this.pContainer);
         }
     }
 
@@ -190,7 +188,7 @@ class Frac {
 
         this.drawSpiral();
 
-        this.pRenderer.render(this.pStage);
+        this.pRenderer.render(this.pContainer);
 
     }
 }

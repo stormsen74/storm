@@ -11,11 +11,11 @@ class Path {
     public radius:number = 20;
     public points:Array<Vec2> = [];
 
-    private canvas:PIXI.DisplayObjectContainer;
+    private canvas:PIXI.Container;
     private graphics:PIXI.Graphics;
     private color:net.brehaut.Color;
 
-    constructor(canvas:PIXI.DisplayObjectContainer = null) {
+    constructor(canvas:PIXI.Container = null) {
         if (canvas != null) {
             this.canvas = canvas;
             this.graphics = new PIXI.Graphics();
