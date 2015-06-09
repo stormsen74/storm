@@ -86,10 +86,10 @@ class Vectors {
         this.initStats();
         //this.initRenderTexture();
         this.initParticles();
-        //this.initFlowField();
-        //this.initElectricField();
+        this.initFlowField();
+        this.initElectricField();
         //this.initPath();
-        this.initListener();
+        //this.initListener();
         this.animate();
 
     }
@@ -159,20 +159,20 @@ class Vectors {
     private animate() {
 
         for (var i = 0, len = this.particles.length; i < len; i++) {
-            this.particles[i].seek(this.mousePosition);
+            //this.particles[i].seek(this.mousePosition);
 
-            //this.particles[i].field(this.electricField);
-            //this.particles[i].respawn(this.electricField.getQPos());
-            //this.particles[i].field(this.flowField);
+            this.particles[i].field(this.electricField);
+            this.particles[i].respawn(this.electricField.getQPos());
+            this.particles[i].field(this.flowField);
 
             //this.particles[i].followPath(this.path);
             this.particles[i].update();
         }
 
-        //this.flowField.perlinField();
-        //this.flowField.draw();
+        this.flowField.perlinField();
+        this.flowField.draw();
 
-        //this.electricField.update();
+        this.electricField.update();
         //this.electricField.draw();
 
         //this.path.draw();
