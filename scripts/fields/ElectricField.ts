@@ -22,7 +22,7 @@ class ElectricField {
 
     private width:number;
     private height:number;
-    private range:number = 20;
+    private range:number = 50;
     private cellWidth:number;
     private cellHeight:number;
     private vArray:Array<any>;

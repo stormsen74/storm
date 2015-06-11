@@ -30,7 +30,7 @@ class FlowField {
     private t_center:PIXI.Point = new PIXI.Point(0, 0);
     private range:number = 20;
     private t:number = 0;
-    private deltaT:number = 0.005;
+    private deltaT:number = 0.0025;
     private vCell:Vec2 = new Vec2(0, 0);
     private fieldX:number;
     private fieldY:number;

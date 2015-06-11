@@ -18,6 +18,14 @@
 var that:Vectors;
 
 class Vectors {
+
+    /* === todos ==
+    ° add params (datgui)
+    ° test suite
+    ° complete classes (p || fp)
+    ° stage resize
+     */
+
     private stats:Stats;
 
     private pRenderer;
@@ -38,7 +46,7 @@ class Vectors {
 
     private blurFilter;
 
-    private MAX_PARTICLES:number = 6000; //50fps
+    private MAX_PARTICLES:number = 5000; //50fps
 
     private flowField:FlowField;
     private electricField:ElectricField;

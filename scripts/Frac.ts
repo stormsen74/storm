@@ -76,7 +76,7 @@ class Frac {
 
         //this.drawCircle(this.SIZE.x * .5, this.SIZE.y * .5, 200);
         //this.cantor(this.SIZE.x * .5 - 350, 100, 700);
-        this.tri(this.SIZE.x * .5, 50, 300);
+        this.tri(this.SIZE.x * .5, 50, 500);
 
     }
 
