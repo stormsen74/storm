@@ -13,6 +13,7 @@
     <!--<script src="lib/pixi/NoiseFilter.js"></script>-->
     <script src="lib/gsap/TweenMax.min.js"></script>
     <script src="lib/gsap/utils/Draggable.min.js"></script>
+    <script src="lib/dat/dat.gui.min.js"></script>
 
 
     <script src="lib/stats/stats.min.js"></script>
@@ -33,6 +34,7 @@
     <script src="scripts/Path.js"></script>
 
     <script src="scripts/Frac.js"></script>
+    <script src="scripts/Filters.js"></script>
 
 
     <style>
@@ -62,8 +64,7 @@
 <body>
 <script>
 
-    //    new Vectors();
-    new Frac()
+    new Filters();
 
     var r90 = mathUtils.degToRad(90);
     console.log(mathUtils.radToDeg(r90))
