@@ -55,8 +55,9 @@ class Filters {
         this.addFilter();
 
 
-        TweenLite.delayedCall(1, function () {
-            that.renderStage()
+        TweenLite.delayedCall(.5, function () {
+
+            that.renderStage();
         });
 
 
@@ -74,6 +75,8 @@ class Filters {
         overlap.style.width = this.SIZE.x + "px";
         overlap.style.height = this.SIZE.y + "px";
         overlap.style.position = 'absolute';
+        overlap.style.top = "0px";
+        overlap.style.left = "0px";
         //overlap.style.backgroundColor = '#ff0000';
         //overlap.style.opacity = '.5';
 
@@ -91,13 +94,13 @@ class Filters {
 
         Draggable.create(start, {
             type: "x,y",
-            //bounds: {minX: 0, maxX: this.width - 50, minY: 0, maxY: this.height - 50},
             bounds: overlap,
             onDrag: function () {
-                console.log(this.x)
+                var c_HEIGHT = window.innerHeight - that.SIZE.y;
+                var c_WIDTH = window.innerWidth - that.SIZE.x;
                 that.filter.start = {
-                    x: this.x - 5 + window.innerWidth - that.SIZE.x,
-                    y: this.y - 5 + window.innerHeight - that.SIZE.y
+                    x: this.x + 5 + (this.x / that.SIZE.x * c_WIDTH),
+                    y: this.y + 5 + (this.y / that.SIZE.y * c_HEIGHT)
                 };
                 that.renderStage();
             }
@@ -107,13 +110,18 @@ class Filters {
             type: "x,y",
             bounds: overlap,
             onDrag: function () {
-                that.filter.end = {x: this.x - 5, y: this.y - 5};
+                var c_HEIGHT = window.innerHeight - that.SIZE.y;
+                var c_WIDTH = window.innerWidth - that.SIZE.x;
+                that.filter.end = {
+                    x: this.x + 5 + (this.x / that.SIZE.x * c_WIDTH),
+                    y: this.y + 5 + (this.y / that.SIZE.y * c_HEIGHT)
+                };
                 that.renderStage();
             }
         });
 
-        //TweenMax.set(start, {x: this.Q1.x - 25, y: this.Q1.y - 25});
-        //TweenMax.set(end, {x: this.Q2.x - 25, y: this.Q2.y - 25});
+        TweenMax.set(start, {x: -5, y: -5});
+        TweenMax.set(end, {x: this.SIZE.x - 5, y: this.SIZE.y - 5});
 
         window.onresize = function (e) {
             TweenMax.set(overlap, {left: (window.innerWidth - that.SIZE.x) * .5, top: 30});
@@ -126,9 +134,9 @@ class Filters {
 
     private addFilter() {
         this.filter = new PIXI.filters.TiltShiftFilter();
-        console.log(this.filter)
-        //this.filter.blur = 20;
-        this.filter.gradientBlur = 5;
+        //console.log(this.filter)
+        this.filter.blur = 20;
+        //this.filter.gradientBlur = 5;
         this.container.filters = [this.filter];
 
     }
@@ -143,8 +151,8 @@ class Filters {
 
         var fFolder = gui.addFolder('TiltShiftFilter');
         fFolder.open();
-        //var fController = fFolder.add(this.filter, 'blur', 0, 100);
-        var fController = fFolder.add(this.filter, 'gradientBlur', 0, 600);
+        var fController = fFolder.add(this.filter, 'blur', 0, 300);
+        //var fController = fFolder.add(this.filter, 'gradientBlur', 0, 600);
 
 
         fController.onChange(function (value) {
