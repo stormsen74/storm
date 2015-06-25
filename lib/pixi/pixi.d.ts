@@ -1325,8 +1325,8 @@ declare module PIXI {
 
             blur: number;
             gradientBlur: number;
-            start: number;
-            end: number;
+            start: Object;
+            end: Object;
 
         }
         export class TiltShiftXFilter extends AbstractFilter {

@@ -7,12 +7,16 @@
 ///<reference path="../lib/pixi/pixi.d.ts"/>
 ///<reference path="../lib/stats/stats.d.ts"/>
 
+
+declare var Draggable:any;
 var that:Filters;
 
 class Filters {
 
     private pRenderer;
     private pStage:PIXI.Container;
+    private width:number;
+    private height:number;
     private container:PIXI.Container;
     private sprite:PIXI.Sprite;
     private pManager:PIXI.interaction.InteractionManager;
@@ -50,26 +54,88 @@ class Filters {
 
         this.addFilter();
 
-        this.addGUI();
 
         TweenLite.delayedCall(1, function () {
             that.renderStage()
         });
 
+
+        this.initDrag();
+
+        this.addGUI();
         //this.animate();
+
+    }
+
+    private initDrag() {
+
+        var overlap = document.createElement('div');
+        overlap.id = 'overlap';
+        overlap.style.width = this.SIZE.x + "px";
+        overlap.style.height = this.SIZE.y + "px";
+        overlap.style.position = 'absolute';
+        //overlap.style.backgroundColor = '#ff0000';
+        //overlap.style.opacity = '.5';
+
+        var start = document.createElement('div');
+        start.setAttribute("class", "point");
+        start.id = 'start';
+
+        var end = document.createElement('div');
+        end.setAttribute("class", "point");
+        end.id = 'end';
+
+        document.body.appendChild(overlap);
+        document.getElementById('overlap').appendChild(start);
+        document.getElementById('overlap').appendChild(end);
+
+        Draggable.create(start, {
+            type: "x,y",
+            //bounds: {minX: 0, maxX: this.width - 50, minY: 0, maxY: this.height - 50},
+            bounds: overlap,
+            onDrag: function () {
+                console.log(this.x)
+                that.filter.start = {
+                    x: this.x - 5 + window.innerWidth - that.SIZE.x,
+                    y: this.y - 5 + window.innerHeight - that.SIZE.y
+                };
+                that.renderStage();
+            }
+        });
+
+        Draggable.create(end, {
+            type: "x,y",
+            bounds: overlap,
+            onDrag: function () {
+                that.filter.end = {x: this.x - 5, y: this.y - 5};
+                that.renderStage();
+            }
+        });
+
+        //TweenMax.set(start, {x: this.Q1.x - 25, y: this.Q1.y - 25});
+        //TweenMax.set(end, {x: this.Q2.x - 25, y: this.Q2.y - 25});
+
+        window.onresize = function (e) {
+            TweenMax.set(overlap, {left: (window.innerWidth - that.SIZE.x) * .5, top: 30});
+        };
+
+        TweenMax.set(overlap, {left: (window.innerWidth - that.SIZE.x) * .5, top: 30});
+
 
     }
 
     private addFilter() {
         this.filter = new PIXI.filters.TiltShiftFilter();
+        console.log(this.filter)
         //this.filter.blur = 20;
-        this.filter.gradientBlur = 300;
+        this.filter.gradientBlur = 5;
         this.container.filters = [this.filter];
 
     }
 
 
     // http://www.goodboydigital.com/pixijs/examples/15/indexAll.html
+    // http://laplace2be.com/lab/webgl/tiltshiftfilter/
 
     private addGUI() {
         var gui = new dat.GUI({width: 300, closed: false});
