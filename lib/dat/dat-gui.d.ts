@@ -46,10 +46,12 @@ declare module dat {
         isModified(): boolean;
         listen(): GUIController;
         min(n: number): GUIController;
+        max(n: number): GUIController;
         remove(target: GUIController): void;
         setValue(value: any): GUIController;
         step(n: number): GUIController;
         updateDisplay(): void;
+        options(options: any):GUIController;
 
         onChange: (value?: any) => void;
         onFinishChange: (value?: any) => void;
