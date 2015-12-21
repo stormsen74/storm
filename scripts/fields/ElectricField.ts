@@ -118,7 +118,6 @@ class ElectricField {
 
         TweenMax.set(overlap, {left: (window.innerWidth - eF.width) * .5, top: 30});
 
-
     }
 
     private initField() {

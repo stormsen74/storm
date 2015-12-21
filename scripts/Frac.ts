@@ -89,7 +89,7 @@ class Frac {
         var p2:Vec2 = new Vec2(x - sideLength * .5, y + h);
         var p3:Vec2 = new Vec2(x + sideLength * .5, y + h);
 
-        var colorValue = mathUtils.convertToRange(y, [0, 500], [0, 1]);
+        var colorValue = mathUtils.convertToRange(y, [0, 500], [0, .5]);
         this.color.setHSV(colorValue, 1.0, 1.0);
         this.graphics.lineStyle(1, this.color.toInt(), 1);
 
