@@ -34,7 +34,7 @@ class Vectors {
     private particles:Array<Particle> = [];
     private mousePosition:Vec2 = new Vec2();
     private particle:Particle;
-    private particleContainer:PIXI.ParticleContainer;
+    private particleContainer:PIXI.Container;
     private drawContainer:PIXI.Container;
 
     private renderTexture:PIXI.RenderTexture;
@@ -46,7 +46,7 @@ class Vectors {
 
     private blurFilter;
 
-    private MAX_PARTICLES:number = 5000; //50fps
+    private MAX_PARTICLES:number = 4000; //50fps
 
     private flowField:FlowField;
     private electricField:ElectricField;
@@ -61,14 +61,14 @@ class Vectors {
 
         this.pStage.interactive = true;
 
-        //this.particleContainer = new PIXI.Container();
-        this.particleContainer = new PIXI.ParticleContainer(this.MAX_PARTICLES, {
-            scale: true,
-            position: true,
-            rotation: true,
-            uvs: true,
-            alpha: true
-        });
+        this.particleContainer = new PIXI.Container();
+        //this.particleContainer = new PIXI.ParticleContainer(this.MAX_PARTICLES, {
+        //    scale: true,
+        //    position: true,
+        //    rotation: true,
+        //    uvs: true,
+        //    alpha: true
+        //});
 
         this.drawContainer = new PIXI.Container();
 

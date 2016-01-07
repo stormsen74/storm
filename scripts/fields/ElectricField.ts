@@ -2,7 +2,7 @@
  * Created by michael.sturm on 05.05.2015.
  */
 
-///<reference path="../../lib/pixi/pixi.d.ts"/>
+///<reference path="../../#obsolete/pixi_3.0.6.d.ts.bak"/>
 ///<reference path="../../scripts/Vec2.ts"/>
 ///<reference path="Charge.ts"/>
 ///<reference path="../../scripts/utils/mathUtils.ts"/>
