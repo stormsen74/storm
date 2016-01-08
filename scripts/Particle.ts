@@ -12,9 +12,9 @@
 var Color = net.brehaut.Color;
 
 // doesn*t work with particleContainer+
-class Particle extends PIXI.Container {
+//class Particle extends PIXI.Container {
 
-//class Particle extends PIXI.Sprite {
+class Particle extends PIXI.Sprite {
 
     private SEEK_MAX_SPEED:number = 10.0;
     private SEEK_MAX_FORCE = .15;
@@ -33,6 +33,7 @@ class Particle extends PIXI.Container {
     private wander:Vec2;
     private angle:number = 0;
 
+    private shape:PIXI.Graphics;
     private sprite:PIXI.Sprite;
     private color:net.brehaut.Color;
 
@@ -51,7 +52,7 @@ class Particle extends PIXI.Container {
         this.setLocation(Math.random() * 1280, Math.random() * 720);
         this.setMass(.1 + Math.random() * 3);
 
-        this.color = Color("rgb(255,1,1)");
+        this.color = Color("rgb(1,255,1)");
         //console.log(parseInt(this.color.toString().substring(1), 16));
 
 
@@ -60,16 +61,28 @@ class Particle extends PIXI.Container {
 
         // ONLY WITH extend CONTAINER!!!
 
-        this.sprite = PIXI.Sprite.fromImage('assets/arrow20p_c.png');
-        this.sprite.anchor = new PIXI.Point(this.sprite.width * .5, this.sprite.height * .5)
-        this.sprite.scale = new PIXI.Point(.4, .4);
-        this.sprite.blendMode = PIXI.BLEND_MODES.ADD;
+        //this.sprite = PIXI.Sprite.fromImage('assets/arrow20p_c.png');
+        //this.sprite.anchor = new PIXI.Point(this.sprite.width * .5, this.sprite.height * .5)
+        //this.sprite.scale = new PIXI.Point(.4, .4);
+        //this.sprite.blendMode = PIXI.BLEND_MODES.ADD;
 
         //this.sprite.tint = parseInt(this.color.toString().substring(1), 16);
         //this.sprite.tint = 0xff0000;
 
-        this.addChild(this.sprite);
+        //this.addChild(this.sprite);
 
+
+
+        this.shape = new PIXI.Graphics();
+        this.shape.lineStyle(2, 0xFFFFFF, 1);
+        this.shape.moveTo(0, 0);
+        this.shape.lineTo(25, 0);
+        this.shape.cacheAsBitmap = false;
+        this.shape.scale.x = .5;
+
+
+
+        this.addChild(this.shape);
 
     }
 
@@ -326,9 +339,17 @@ class Particle extends PIXI.Container {
         this.position.x = this.location.x;
         this.position.y = this.location.y;
 
+
         // colorize
         var value:number = Math.abs(this.velocity.clone().length() / 10);
-        this.alpha = value < .8 ? value : .8;
+        //this.alpha = value < .8 ? value : .8;
+
+        //this.color = this.color.setSaturation(value).setLightness(.1 + value);
+        //this.color = this.color.setLightness(.1 + value);
+
+        this.shape.scale.x = value < 1 ? value : 1;
+        this.color = this.color.setHue(180 + value * 210);
+        this.shape.tint = parseInt(this.color.toString().substring(1), 16);
 
         //this.color = this.color.setSaturation(value).setLightness(.1 + value);
         //this.color = this.color.setLightness(.1 + value);

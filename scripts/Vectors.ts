@@ -20,10 +20,10 @@ var that:Vectors;
 class Vectors {
 
     /* === todos ==
-    ° add params (datgui)
-    ° test suite
-    ° complete classes (p || fp)
-    ° stage resize
+     ° add params (datgui)
+     ° test suite
+     ° complete classes (p || fp)
+     ° stage resize
      */
 
     private stats:Stats;
@@ -40,13 +40,17 @@ class Vectors {
     private renderTexture:PIXI.RenderTexture;
     private renderSprite:PIXI.Sprite;
 
+    private activeSnapshot:PIXI.RenderTexture;
+    private backgroundSnapshot:PIXI.RenderTexture;
+    private currentTexture:PIXI.RenderTexture;
+
     private path:Path;
 
     private SIZE:PIXI.Point = new PIXI.Point(1280, 720);
 
     private blurFilter;
 
-    private MAX_PARTICLES:number = 4000; //50fps
+    private MAX_PARTICLES:number = 2000; //50fps
 
     private flowField:FlowField;
     private electricField:ElectricField;
@@ -55,9 +59,15 @@ class Vectors {
     constructor() {
         that = this;
 
-        this.pRenderer = PIXI.autoDetectRenderer(this.SIZE.x, this.SIZE.y);
-        //this.pStage = new PIXI.Stage(0x232323);
+        this.pRenderer = PIXI.autoDetectRenderer(this.SIZE.x, this.SIZE.y, {
+            antialias: true,
+            //transparent: true,
+            //clearBeforeRendering: false,
+            //preserveDrawingBuffer: false
+        });
+
         this.pStage = new PIXI.Container();
+
 
         this.pStage.interactive = true;
 
@@ -92,7 +102,7 @@ class Vectors {
         document.body.appendChild(this.pRenderer.view);
 
         this.initStats();
-        //this.initRenderTexture();
+        this.initRenderTexture();
         this.initParticles();
         this.initFlowField();
         this.initElectricField();
@@ -140,8 +150,16 @@ class Vectors {
     }
 
     private initRenderTexture() {
-        this.renderTexture = new PIXI.RenderTexture(this.SIZE.x, this.SIZE.y);
-        this.renderSprite = new PIXI.Sprite(this.renderTexture);
+        // http://phaser.io/sandbox/VWOOYqpU/play
+
+        // create our render texture buffers
+        this.activeSnapshot = new PIXI.RenderTexture(this.pRenderer, this.SIZE.x, this.SIZE.y);;
+        this.backgroundSnapshot = new PIXI.RenderTexture(this.pRenderer, this.SIZE.x, this.SIZE.y);;
+        this.currentTexture = this.activeSnapshot;
+        this.backgroundSnapshot.render(this.particleContainer);
+
+        //this.renderTexture = new PIXI.RenderTexture(this.pRenderer, this.SIZE.x, this.SIZE.y);
+        this.renderSprite = new PIXI.Sprite(this.currentTexture);
 
         //sprite.position.x = 800 / 2;
         //sprite.position.y = 600 / 2;
@@ -169,6 +187,8 @@ class Vectors {
         for (var i = 0, len = this.particles.length; i < len; i++) {
             //this.particles[i].seek(this.mousePosition);
 
+            //this.particles[i].blendMode = PIXI.BLEND_MODES.LUMINOSITY;
+
             this.particles[i].field(this.electricField);
             this.particles[i].respawn(this.electricField.getQPos());
             this.particles[i].field(this.flowField);
@@ -185,14 +205,28 @@ class Vectors {
         //
         //this.path.draw();
 
-
         //this.renderTexture.render(this.particleContainer);
-        this.pRenderer.render(this.pStage);
 
+
+        this.renderSprite.alpha = 0.5
+        this.swapBuffers()
+        //this.activeSnapshot.clear()
+        this.backgroundSnapshot.render(this.particleContainer);
+
+
+        this.pRenderer.render(this.pStage);
         this.stats.update();
 
 
         requestAnimationFrame(() => this.animate());
+
+    }
+
+    private swapBuffers() {
+        var temp = this.activeSnapshot;
+        this.activeSnapshot = this.backgroundSnapshot;
+        this.backgroundSnapshot = temp;
+        this.renderSprite = new PIXI.Sprite(this.activeSnapshot);
 
     }
 }

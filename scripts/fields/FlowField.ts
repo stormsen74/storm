@@ -3,7 +3,7 @@
  */
 
 
-///<reference path="../../#obsolete/pixi_3.0.6.d.ts.bak"/>
+///<reference path="../../lib/pixi/pixi.d.ts"/>
 ///<reference path="../../scripts/Vec2.ts"/>
 ///<reference path="../../scripts/utils/mathUtils.ts"/>
 ///<reference path="../../lib/color/color.d.ts"/>
