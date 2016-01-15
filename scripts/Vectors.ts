@@ -102,7 +102,7 @@ class Vectors {
         document.body.appendChild(this.pRenderer.view);
 
         this.initStats();
-        this.initRenderTexture();
+        //this.initRenderTexture();
         this.initParticles();
         this.initFlowField();
         this.initElectricField();
@@ -187,8 +187,6 @@ class Vectors {
         for (var i = 0, len = this.particles.length; i < len; i++) {
             //this.particles[i].seek(this.mousePosition);
 
-            //this.particles[i].blendMode = PIXI.BLEND_MODES.LUMINOSITY;
-
             this.particles[i].field(this.electricField);
             this.particles[i].respawn(this.electricField.getQPos());
             this.particles[i].field(this.flowField);
@@ -207,11 +205,10 @@ class Vectors {
 
         //this.renderTexture.render(this.particleContainer);
 
-
-        this.renderSprite.alpha = 0.5
-        this.swapBuffers()
-        //this.activeSnapshot.clear()
-        this.backgroundSnapshot.render(this.particleContainer);
+        // renderTexture
+        //this.renderSprite.alpha = 0.5
+        //this.swapBuffers()
+        //this.backgroundSnapshot.render(this.particleContainer);
 
 
         this.pRenderer.render(this.pStage);
