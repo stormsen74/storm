@@ -72,11 +72,11 @@ class Frac {
         this.v = this.vCenter.clone();
 
 
-        //this.animate();
+        this.animate();
 
-        //this.drawCircle(this.SIZE.x * .5, this.SIZE.y * .5, 200);
-        //this.cantor(this.SIZE.x * .5 - 350, 100, 700);
-        this.tri(this.SIZE.x * .5, 50, 500);
+        // this.drawCircle(this.SIZE.x * .5, this.SIZE.y * .5, 200);
+        // this.cantor(this.SIZE.x * .5 - 350, 100, 700);
+        // this.tri(this.SIZE.x * .5, 50, 500);
 
     }
 

@@ -123,6 +123,8 @@ class Particle extends PIXI.Sprite {
 
         this.vSteer = Vec2.subtract(this.vecDesired, this.velocity);
 
+
+
         // limit the magnitude of the steering force.
         this.limitMax(this.vSteer, this.SEEK_MAX_FORCE);
 

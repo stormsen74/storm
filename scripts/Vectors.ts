@@ -37,20 +37,13 @@ class Vectors {
     private particleContainer:PIXI.Container;
     private drawContainer:PIXI.Container;
 
-    private renderTexture:PIXI.RenderTexture;
-    private renderSprite:PIXI.Sprite;
-
-    private activeSnapshot:PIXI.RenderTexture;
-    private backgroundSnapshot:PIXI.RenderTexture;
-    private currentTexture:PIXI.RenderTexture;
-
     private path:Path;
 
     private SIZE:PIXI.Point = new PIXI.Point(1280, 720);
 
     private blurFilter;
 
-    private MAX_PARTICLES:number = 2000; //50fps
+    private MAX_PARTICLES:number = 1000; //50fps
 
     private flowField:FlowField;
     private electricField:ElectricField;
@@ -102,7 +95,6 @@ class Vectors {
         document.body.appendChild(this.pRenderer.view);
 
         this.initStats();
-        //this.initRenderTexture();
         this.initParticles();
         this.initFlowField();
         this.initElectricField();
@@ -149,31 +141,6 @@ class Vectors {
         }
     }
 
-    private initRenderTexture() {
-        // http://phaser.io/sandbox/VWOOYqpU/play
-
-        // create our render texture buffers
-        this.activeSnapshot = new PIXI.RenderTexture(this.pRenderer, this.SIZE.x, this.SIZE.y);;
-        this.backgroundSnapshot = new PIXI.RenderTexture(this.pRenderer, this.SIZE.x, this.SIZE.y);;
-        this.currentTexture = this.activeSnapshot;
-        this.backgroundSnapshot.render(this.particleContainer);
-
-        //this.renderTexture = new PIXI.RenderTexture(this.pRenderer, this.SIZE.x, this.SIZE.y);
-        this.renderSprite = new PIXI.Sprite(this.currentTexture);
-
-        //sprite.position.x = 800 / 2;
-        //sprite.position.y = 600 / 2;
-        //sprite.anchor.x = 0.5;
-        //sprite.anchor.y = 0.5;
-
-        //this.renderTexture.render(this.particleContainer);
-        this.pStage.addChild(this.renderSprite);
-
-        //this.blurFilter = new PIXI.BlurFilter();
-        //this.blurFilter.dirty = true;
-        //this.blurFilter.blur = 10;
-        //this.renderSprite.filters = [this.blurFilter];
-    }
 
     private initListener() {
         onmousemove = function (mouseData) {
@@ -203,14 +170,6 @@ class Vectors {
         //
         //this.path.draw();
 
-        //this.renderTexture.render(this.particleContainer);
-
-        // renderTexture
-        //this.renderSprite.alpha = 0.5
-        //this.swapBuffers()
-        //this.backgroundSnapshot.render(this.particleContainer);
-
-
         this.pRenderer.render(this.pStage);
         this.stats.update();
 
@@ -219,13 +178,6 @@ class Vectors {
 
     }
 
-    private swapBuffers() {
-        var temp = this.activeSnapshot;
-        this.activeSnapshot = this.backgroundSnapshot;
-        this.backgroundSnapshot = temp;
-        this.renderSprite = new PIXI.Sprite(this.activeSnapshot);
-
-    }
 }
 
 
